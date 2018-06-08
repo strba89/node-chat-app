@@ -13,3 +13,15 @@ socket.on('disconnect', function() {
 socket.on('newMessage', function(message) {
     console.log('message: ', message)
 });
+
+socket.on('NewUser', function(message) {
+    console.log('message: ', message)
+});
+
+
+socket.on('massageFromAdmin', function(message) {
+    console.log('##########');
+    console.log('From: ', message.from);
+    console.log('##########');
+    console.log('Message', message.text);
+});
