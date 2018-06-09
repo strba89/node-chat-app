@@ -6,6 +6,7 @@ const socketIO = require('socket.io');
 
 
 const {generateMessage, generateLocationMessage} = require('./utils/message');
+const { isRealString } = require('./utils/validation');
 const port = process.env.PORT || 3000;
 const publicPath = path.join(__dirname,'../public');
 
@@ -17,6 +18,13 @@ let io = socketIO(server);
 
 io.on('connection', (socket)=>{
     console.log('New user connect');
+
+    socket.on('join', (params, callback)=>{
+        if (!isRealString( params.name) || !isRealString( params.room)){
+            callback('Name and Rome Name are required.')
+        }
+        callback();
+    });
 
     socket.emit('newMessage', generateMessage('Admin','Welcome to the chat app'));
 
